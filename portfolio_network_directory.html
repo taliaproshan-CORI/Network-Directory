@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portfolio Network — Expert Directory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f8f6f1;
+    --surface: #ffffff;
+    --border: rgba(0,0,0,0.1);
+    --border-med: rgba(0,0,0,0.18);
+    --text: #1a1814;
+    --text-secondary: #6b6760;
+    --accent: #1a3a2a;
+    --accent-light: #e8f0eb;
+    --accent-text: #1a3a2a;
+    --tag-bg: #eef5f0;
+    --tag-text: #1a3a2a;
+    --gold: #b8860b;
+    --gold-light: #fdf8ec;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  nav {
+    background: var(--accent);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-brand { font-family: 'DM Serif Display', serif; color: #fff; font-size: 18px; letter-spacing: 0.01em; }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-link {
+    color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 400;
+    padding: 6px 14px; border-radius: 6px; cursor: pointer; border: none; background: none;
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .nav-link.active { background: rgba(255,255,255,0.15); color: #fff; font-weight: 500; }
+
+  .page { display: none; padding: 2.5rem 2rem 4rem; max-width: 960px; margin: 0 auto; }
+  .page.visible { display: block; }
+
+  .page-header { margin-bottom: 2rem; }
+  .page-title { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--text); line-height: 1.2; }
+  .page-subtitle { font-size: 14px; color: var(--text-secondary); margin-top: 6px; font-weight: 300; }
+
+  .search-row { display: flex; gap: 10px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .search-input-wrap { flex: 1; min-width: 200px; position: relative; }
+  .search-input-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); font-size: 16px; pointer-events: none; }
+  input[type="text"] {
+    width: 100%; padding: 10px 12px 10px 36px; border: 0.5px solid var(--border-med);
+    border-radius: 8px; font-size: 14px; font-family: inherit; background: var(--surface);
+    color: var(--text); outline: none;
+  }
+  input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26,58,42,0.1); }
+  select {
+    padding: 10px 32px 10px 12px; border: 0.5px solid var(--border-med); border-radius: 8px;
+    font-size: 14px; font-family: inherit; background: var(--surface); color: var(--text);
+    outline: none; cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6760' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 10px center;
+  }
+  select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26,58,42,0.1); }
+
+  .filter-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .filter-tag {
+    padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    cursor: pointer; border: 0.5px solid var(--border-med); background: var(--surface);
+    color: var(--text-secondary); transition: all 0.15s;
+  }
+  .filter-tag:hover { background: var(--accent-light); color: var(--accent-text); border-color: var(--accent); }
+  .filter-tag.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .results-count { font-size: 12px; color: var(--text-secondary); margin-bottom: 1rem; }
+
+  .expert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .expert-card {
+    background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px;
+    padding: 1.25rem; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .expert-card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(26,58,42,0.08); }
+  .card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  .avatar {
+    width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-weight: 500; font-size: 14px; flex-shrink: 0;
+  }
+  .avatar-green { background: #e8f0eb; color: #1a3a2a; }
+  .avatar-blue { background: #ddeef8; color: #0c4470; }
+  .avatar-amber { background: #fdf1d8; color: #7a4a0a; }
+  .avatar-coral { background: #faeae4; color: #7a2c10; }
+  .avatar-purple { background: #eeedf8; color: #3e3580; }
+  .card-name { font-weight: 500; font-size: 15px; line-height: 1.3; color: var(--text); }
+  .card-title-text { font-size: 12px; color: var(--text-secondary); margin-top: 2px; font-weight: 300; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .tag {
+    padding: 3px 10px; background: var(--tag-bg); color: var(--tag-text);
+    border-radius: 20px; font-size: 11px; font-weight: 500;
+  }
+  .card-meta { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--text-secondary); padding-top: 10px; border-top: 0.5px solid var(--border); }
+  .card-meta i { font-size: 14px; }
+  .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-secondary); }
+  .empty-state i { font-size: 40px; margin-bottom: 12px; display: block; }
+  .empty-state p { font-size: 14px; }
+
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200;
+    display: none; align-items: center; justify-content: center; padding: 1rem;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--surface); border-radius: 16px; padding: 2rem;
+    max-width: 520px; width: 100%; max-height: 80vh; overflow-y: auto;
+    border: 0.5px solid var(--border);
+  }
+  .modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; }
+  .modal-name { font-family: 'DM Serif Display', serif; font-size: 22px; }
+  .modal-close { background: none; border: none; cursor: pointer; color: var(--text-secondary); font-size: 20px; padding: 2px; }
+  .modal-section { margin-bottom: 1.25rem; }
+  .modal-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 6px; }
+  .modal-value { font-size: 14px; color: var(--text); line-height: 1.6; font-weight: 300; }
+  .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
+    padding: 8px 16px; border: 0.5px solid var(--border-med); border-radius: 8px;
+    background: none; font-size: 13px; font-family: inherit; cursor: pointer;
+    color: var(--text-secondary); transition: all 0.15s;
+  }
+  .copy-btn:hover { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+
+  .about-section { margin-bottom: 2.5rem; }
+  .about-section h2 { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 10px; }
+  .about-section p { font-size: 14px; color: var(--text-secondary); line-height: 1.75; font-weight: 300; }
+  .workflow-card {
+    background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px;
+    padding: 1.5rem; margin-bottom: 1rem;
+  }
+  .workflow-step { display: flex; gap: 16px; align-items: flex-start; }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%; background: var(--accent);
+    color: #fff; font-size: 13px; font-weight: 500; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; margin-top: 1px;
+  }
+  .step-content h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+  .step-content p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; font-weight: 300; }
+  .step-content a { color: var(--accent); text-decoration: underline; font-size: 13px; }
+  .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem; }
+  .category-pill {
+    background: var(--accent-light); color: var(--accent-text); padding: 10px 14px;
+    border-radius: 8px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px;
+  }
+  .category-pill i { font-size: 16px; }
+  .partners-row { display: flex; gap: 12px; margin-top: 1rem; flex-wrap: wrap; }
+  .partner-badge {
+    padding: 8px 16px; border: 0.5px solid var(--border-med); border-radius: 8px;
+    font-size: 13px; font-weight: 500; background: var(--surface); color: var(--text);
+  }
+  .note-box {
+    background: var(--gold-light); border: 0.5px solid rgba(184,134,11,0.25);
+    border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #6b4e09; line-height: 1.6;
+    display: flex; gap: 10px; align-items: flex-start; margin-top: 1.5rem;
+  }
+  .note-box i { font-size: 16px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+  .divider { height: 0.5px; background: var(--border); margin: 2rem 0; }
+
+  @media (max-width: 600px) {
+    .category-grid { grid-template-columns: 1fr; }
+    .page { padding: 1.5rem 1rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Portfolio Network</div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('directory', this)">Directory</button>
+    <button class="nav-link" onclick="showPage('about', this)">How It Works</button>
+  </div>
+</nav>
+
+<div id="page-directory" class="page visible">
+  <div class="page-header">
+    <div class="page-title">Expert Directory</div>
+    <div class="page-subtitle">Search LP contacts by expertise or role to match founder needs</div>
+  </div>
+  <div class="search-row">
+    <div class="search-input-wrap">
+      <i class="ti ti-search"></i>
+      <input type="text" id="search-input" placeholder="Search by name, expertise, or company…" oninput="renderCards()">
+    </div>
+    <select id="category-filter" onchange="renderCards()">
+      <option value="">All categories</option>
+      <option value="Fundraising & Capital Access">Fundraising & Capital Access</option>
+      <option value="Hiring & Talent">Hiring & Talent</option>
+      <option value="Product-Market Fit">Product-Market Fit</option>
+      <option value="Legal & Compliance">Legal & Compliance</option>
+    </select>
+  </div>
+  <div class="filter-tags" id="tag-filters"></div>
+  <div class="results-count" id="results-count"></div>
+  <div class="expert-grid" id="expert-grid"></div>
+</div>
+
+<div id="page-about" class="page">
+  <div class="page-header">
+    <div class="page-title">Founder Pain Points & LP Communication</div>
+    <div class="page-subtitle">How we surface founder needs and connect them with LP expertise</div>
+  </div>
+
+  <div class="about-section">
+    <h2>Objective</h2>
+    <p>Identify and document the most pressing, actionable challenges faced by our portfolio's founders, structure those insights into clear categories, and concisely communicate findings on a monthly basis to LPs so they may make introductions.</p>
+  </div>
+
+  <div class="about-section">
+    <h2>Four focus categories</h2>
+    <div class="category-grid">
+      <div class="category-pill"><i class="ti ti-currency-dollar" aria-hidden="true"></i> Fundraising & Capital Access</div>
+      <div class="category-pill"><i class="ti ti-users" aria-hidden="true"></i> Hiring & Talent</div>
+      <div class="category-pill"><i class="ti ti-target" aria-hidden="true"></i> Product-Market Fit</div>
+      <div class="category-pill"><i class="ti ti-scale" aria-hidden="true"></i> Legal & Compliance</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="about-section">
+    <h2>3-part workflow</h2>
+
+    <div class="workflow-card" style="margin-bottom:10px;">
+      <div class="workflow-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Founder intake</h3>
+          <p>Founders fill out a form with their company name and up to 3 pain points across the four categories. Guided prompts help them write in clear, useful language.</p>
+          <a href="https://forms.gle/Zp37d9CJa95xtG1H8" target="_blank">Open intake form ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="workflow-card" style="margin-bottom:10px;">
+      <div class="workflow-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Review & refine</h3>
+          <p>Use AI to suggest more specific language for each entry. The team approves each pain point before it goes to LPs. This step also involves collecting updated pitch decks, job descriptions, or sales decks from founders.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="workflow-card">
+      <div class="workflow-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Send to LPs</h3>
+          <p>Email LPs the founder needs organized by category. For each need, an LP can indicate whether they can help and provide the name of someone to introduce. Relevant collateral (pitch deck, job description, sales deck) is included upfront.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="about-section">
+    <h2>Core activities</h2>
+    <p style="margin-bottom:8px;">Surfacing pain points across all four categories — including securing appropriate collateral (job descriptions, pitch decks, sales decks) to support founders' specific needs.</p>
+    <p style="margin-bottom:8px;">Organizing pain points by theme, severity, and frequency. Communicating needs to LPs in a targeted, easy-to-respond-to format with all collateral included upfront.</p>
+  </div>
+
+  <div class="about-section">
+    <h2>Outputs</h2>
+    <p style="margin-bottom:6px;">— Categorized summary of founder pain points with supporting context per company</p>
+    <p style="margin-bottom:6px;">— LP communication materials (email or form)</p>
+    <p>— List of action items following LP responses</p>
+  </div>
+
+  <div class="about-section">
+    <h2>What we're not doing</h2>
+    <p>Presenting a long, exhaustive list of founder needs. Sending mass emails to LPs.</p>
+  </div>
+
+  <div class="about-section">
+    <h2>Key partners</h2>
+    <div class="partners-row">
+      <div class="partner-badge">Jay</div>
+      <div class="partner-badge">Matt</div>
+      <div class="partner-badge">Rhonda</div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <i class="ti ti-info-circle"></i>
+    <span>This directory is designed to connect to Airtable. Replace the sample data in the <code>experts</code> array with a live fetch from your Airtable base using the Airtable API and your base ID.</span>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-name" id="modal-name"></div>
+        <div style="font-size:13px; color:var(--text-secondary); margin-top:3px;" id="modal-title"></div>
+      </div>
+      <button class="modal-close" onclick="closeModalDirect()"><i class="ti ti-x"></i></button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const experts = [
+  {
+    id: 1, name: "Sarah Chen", title: "Partner, Sequoia Capital", company: "Sequoia Capital",
+    email: "s.chen@sequoia.com", phone: "(650) 555-0121",
+    categories: ["Fundraising & Capital Access", "Product-Market Fit"],
+    expertise: ["Series A/B Strategy", "SaaS Metrics", "Pitch Coaching", "GTM Strategy"],
+    bio: "15 years in venture, focused on enterprise SaaS and infrastructure. Deep network in Silicon Valley and NYC. Has helped 20+ portfolio companies refine their fundraising narrative.",
+    avatar: "SC", avatarClass: "avatar-blue"
+  },
+  {
+    id: 2, name: "Marcus Williams", title: "General Counsel, Stripe", company: "Stripe",
+    email: "m.williams@stripe.com", phone: "(415) 555-0188",
+    categories: ["Legal & Compliance"],
+    expertise: ["Fintech Regulation", "Data Privacy", "Securities Law", "Contract Negotiation"],
+    bio: "Former regulatory counsel at the SEC. Expert in fintech compliance, GDPR/CCPA, and startup legal structures. Available for introductions to compliance specialists.",
+    avatar: "MW", avatarClass: "avatar-coral"
+  },
+  {
+    id: 3, name: "Priya Nair", title: "VP Talent, a16z", company: "Andreessen Horowitz",
+    email: "p.nair@a16z.com", phone: "(650) 555-0144",
+    categories: ["Hiring & Talent"],
+    expertise: ["Executive Search", "Engineering Hiring", "Compensation Benchmarking", "Team Structure"],
+    bio: "Built talent practices at three hypergrowth startups before joining a16z. Specializes in 0-to-1 hiring, C-suite searches, and building engineering orgs.",
+    avatar: "PN", avatarClass: "avatar-green"
+  },
+  {
+    id: 4, name: "James Park", title: "Founder & CEO, Vercel", company: "Vercel",
+    email: "j.park@vercel.com", phone: "(212) 555-0163",
+    categories: ["Product-Market Fit", "Hiring & Talent"],
+    expertise: ["Developer Tools", "PLG Strategy", "Community Building", "Founding Team"],
+    bio: "Scaled Vercel from 0 to $2B+ ARR. Expert in developer-led growth, product positioning, and building founding engineering teams. Open to intros for devtools companies.",
+    avatar: "JP", avatarClass: "avatar-purple"
+  },
+  {
+    id: 5, name: "Alicia Torres", title: "Managing Director, Tiger Global", company: "Tiger Global",
+    email: "a.torres@tigerglobal.com", phone: "(212) 555-0177",
+    categories: ["Fundraising & Capital Access"],
+    expertise: ["Growth Equity", "International Expansion", "Cap Table Management", "Bridge Financing"],
+    bio: "Leads growth-stage investments at Tiger Global. Deep expertise in non-dilutive financing options, international expansion capital, and bridge rounds.",
+    avatar: "AT", avatarClass: "avatar-amber"
+  },
+  {
+    id: 6, name: "David Kim", title: "CTO, Databricks", company: "Databricks",
+    email: "d.kim@databricks.com", phone: "(415) 555-0132",
+    categories: ["Product-Market Fit", "Hiring & Talent"],
+    expertise: ["Data Infrastructure", "ML/AI Products", "Technical Hiring", "Product Roadmap"],
+    bio: "15+ years building data platforms. Helps founders think through technical product-market fit, AI/ML strategy, and recruiting senior engineers and ML scientists.",
+    avatar: "DK", avatarClass: "avatar-blue"
+  },
+  {
+    id: 7, name: "Fatima Hassan", title: "Partner, Wilson Sonsini", company: "Wilson Sonsini",
+    email: "f.hassan@wsgr.com", phone: "(650) 555-0159",
+    categories: ["Legal & Compliance", "Fundraising & Capital Access"],
+    expertise: ["Startup Law", "Term Sheets", "IP Protection", "Equity Structures"],
+    bio: "Startup and venture counsel for 12+ years. Has structured 200+ financing rounds. Expert in founder-friendly terms, IP ownership, and clean cap tables.",
+    avatar: "FH", avatarClass: "avatar-coral"
+  },
+  {
+    id: 8, name: "Raj Mehta", title: "Head of Talent, Benchmark", company: "Benchmark Capital",
+    email: "r.mehta@benchmark.com", phone: "(415) 555-0148",
+    categories: ["Hiring & Talent"],
+    expertise: ["VP-level Hiring", "Sales Leadership", "Recruiting Ops", "Employer Branding"],
+    bio: "Placed 50+ VP and C-suite hires across Benchmark's portfolio. Specializes in GTM hiring — first sales hires, VP Sales/Marketing, and building out go-to-market teams.",
+    avatar: "RM", avatarClass: "avatar-green"
+  }
+];
+
+let activeTag = null;
+
+function initTagFilters() {
+  const wrap = document.getElementById('tag-filters');
+  const topTags = ["Series A/B Strategy", "Executive Search", "Startup Law", "GTM Strategy", "ML/AI Products", "Fintech Regulation"];
+  topTags.forEach(tag => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-tag';
+    btn.textContent = tag;
+    btn.onclick = () => {
+      if (activeTag === tag) { activeTag = null; btn.classList.remove('active'); }
+      else {
+        document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+        activeTag = tag; btn.classList.add('active');
+      }
+      renderCards();
+    };
+    wrap.appendChild(btn);
+  });
+}
+
+function renderCards() {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  const cat = document.getElementById('category-filter').value;
+  const grid = document.getElementById('expert-grid');
+  const countEl = document.getElementById('results-count');
+
+  const filtered = experts.filter(e => {
+    const matchesQuery = !query ||
+      e.name.toLowerCase().includes(query) ||
+      e.title.toLowerCase().includes(query) ||
+      e.company.toLowerCase().includes(query) ||
+      e.expertise.some(x => x.toLowerCase().includes(query)) ||
+      e.bio.toLowerCase().includes(query);
+    const matchesCat = !cat || e.categories.includes(cat);
+    const matchesTag = !activeTag || e.expertise.includes(activeTag);
+    return matchesQuery && matchesCat && matchesTag;
+  });
+
+  countEl.textContent = filtered.length + ' result' + (filtered.length !== 1 ? 's' : '');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-search-off"></i><p>No experts match your search.<br>Try different keywords or clear filters.</p></div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(e => `
+    <div class="expert-card" onclick="openModal(${e.id})">
+      <div class="card-header">
+        <div class="avatar ${e.avatarClass}">${e.avatar}</div>
+        <div>
+          <div class="card-name">${e.name}</div>
+          <div class="card-title-text">${e.title}</div>
+        </div>
+      </div>
+      <div class="card-tags">
+        ${e.categories.map(c => `<span class="tag">${c}</span>`).join('')}
+      </div>
+      <div style="font-size:12px; color:var(--text-secondary); line-height:1.5; font-weight:300; margin-bottom:10px;">${e.expertise.slice(0,3).join(' · ')}</div>
+      <div class="card-meta">
+        <span><i class="ti ti-building" aria-hidden="true"></i> ${e.company}</span>
+        <span style="margin-left:auto"><i class="ti ti-mail" aria-hidden="true"></i> ${e.email.split('@')[0]}@…</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openModal(id) {
+  const e = experts.find(x => x.id === id);
+  if (!e) return;
+  document.getElementById('modal-name').textContent = e.name;
+  document.getElementById('modal-title').textContent = e.title + ' · ' + e.company;
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-section">
+      <div class="modal-label">Categories</div>
+      <div class="modal-tags">${e.categories.map(c => `<span class="tag">${c}</span>`).join('')}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-label">Expertise</div>
+      <div class="modal-tags">${e.expertise.map(x => `<span class="tag">${x}</span>`).join('')}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-label">About</div>
+      <div class="modal-value">${e.bio}</div>
+    </div>
+    <div style="border-top:0.5px solid var(--border); padding-top:14px; margin-top:4px;">
+      <div class="modal-label">Contact</div>
+      <div style="font-size:13px; color:var(--text-secondary); margin-top:4px; display:flex; flex-direction:column; gap:4px;">
+        <span><i class="ti ti-mail" style="font-size:14px; vertical-align:-2px; margin-right:6px;" aria-hidden="true"></i>${e.email}</span>
+        <span><i class="ti ti-phone" style="font-size:14px; vertical-align:-2px; margin-right:6px;" aria-hidden="true"></i>${e.phone}</span>
+      </div>
+      <button class="copy-btn" onclick="copyContact(${e.id})"><i class="ti ti-copy" aria-hidden="true"></i> Copy contact info</button>
+    </div>
+  `;
+  document.getElementById('modal-backdrop').classList.add('open');
+}
+
+function copyContact(id) {
+  const e = experts.find(x => x.id === id);
+  const text = `${e.name}\n${e.title}, ${e.company}\n${e.email}\n${e.phone}`;
+  navigator.clipboard.writeText(text).catch(() => {});
+  const btn = document.querySelector('.copy-btn');
+  if (btn) { btn.innerHTML = '<i class="ti ti-check"></i> Copied!'; setTimeout(() => { btn.innerHTML = '<i class="ti ti-copy"></i> Copy contact info'; }, 2000); }
+}
+
+function closeModal(e) { if (e.target === document.getElementById('modal-backdrop')) closeModalDirect(); }
+function closeModalDirect() { document.getElementById('modal-backdrop').classList.remove('open'); }
+
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+  document.getElementById('page-' + id).classList.add('visible');
+  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+initTagFilters();
+renderCards();
+</script>
+</body>
+</html>
