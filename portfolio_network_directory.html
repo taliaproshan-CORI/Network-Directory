@@ -261,11 +261,11 @@ select:focus{border-color:var(--teal);background:var(--white);box-shadow:0 0 0 3
 </div>
 
 <script>
-const SHEET_CSV_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://docs.google.com/spreadsheets/d/e/2PACX-1vRsMSzaKCQK30B3qndDAsMIpt1du08236cSudQtPtr8tj9PwBvk0mW9hfJUxydFdGIDfKQunq0u89_C/pub?output=csv');
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzakZuHzohGwz9si1upozayu2me2VfJ5pHHuog35cSH5ehMt4lcWuvxjxpZr96_qVRQ/exec';
+
 let experts = [];
 let activeTag = null;
 
-// Auto-categorize based on Position keywords
 function inferCategories(position) {
   const p = (position || '').toLowerCase();
   const cats = [];
@@ -280,7 +280,6 @@ function inferCategories(position) {
   return cats.length ? cats : ['General'];
 }
 
-// Consistent avatar color per person based on name
 function inferAvatarClass(name) {
   const classes = ['av-teal','av-navy','av-gold','av-teal2','av-mid'];
   let hash = 0;
@@ -288,77 +287,43 @@ function inferAvatarClass(name) {
   return classes[hash % classes.length];
 }
 
-// Auto-generate initials from first + last name
 function initials(first, last) {
   return ((first?.[0] || '') + (last?.[0] || '')).toUpperCase() || '??';
-}
-
-function parseCSV(csv) {
-  // Normalize line endings
-  const lines = csv.trim().replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
-  // Parse a single CSV line respecting quoted fields
-  function parseLine(line) {
-    const cols = [];
-    let cur = '', inQuotes = false;
-    for (let i = 0; i < line.length; i++) {
-      const c = line[i];
-      if (c === '"') {
-        if (inQuotes && line[i+1] === '"') { cur += '"'; i++; }
-        else { inQuotes = !inQuotes; }
-      } else if (c === ',' && !inQuotes) {
-        cols.push(cur.trim());
-        cur = '';
-      } else {
-        cur += c;
-      }
-    }
-    cols.push(cur.trim());
-    return cols;
-  }
-  const rawHeaders = parseLine(lines[0]);
-  // Normalize headers: lowercase, trim, remove quotes
-  const headers = rawHeaders.map(h => h.toLowerCase().replace(/^"|"$/g, '').trim());
-  // Case-insensitive field getter
-  const get = (cols, field) => {
-    const idx = headers.indexOf(field.toLowerCase().trim());
-    return idx >= 0 ? (cols[idx] || '').replace(/^"|"$/g, '').trim() : '';
-  };
-  return lines.slice(1).map((line, i) => {
-    if (!line.trim()) return null;
-    const cols = parseLine(line);
-    const firstName = get(cols, 'First Name');
-    const lastName  = get(cols, 'Last Name');
-    const fullName  = [firstName, lastName].filter(Boolean).join(' ');
-    const position  = get(cols, 'Position');
-    const company   = get(cols, 'Company');
-    return {
-      id:          i + 1,
-      name:        fullName || firstName || lastName,
-      title:       position,
-      company:     company,
-      email:       get(cols, 'Email Address'),
-      url:         get(cols, 'URL'),
-      connectedOn: get(cols, 'Connected On'),
-      coriContact: get(cols, 'CORI Connection'),
-      coriEmail:   get(cols, 'Email of CORI Connection'),
-      categories:  inferCategories(position),
-      avatar:      initials(firstName, lastName),
-      av:          inferAvatarClass(fullName || firstName)
-    };
-  }).filter(e => e && e.name && e.name.trim().length > 0);
 }
 
 async function loadData() {
   const grid = document.getElementById('expert-grid');
   grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><i class="ti ti-loader" style="display:inline-block;animation:spin 1s linear infinite;font-size:32px"></i><p style="margin-top:12px">Loading directory…</p></div>';
   try {
-    const res = await fetch(SHEET_CSV_URL);
-    const csv = await res.text();
-    experts = parseCSV(csv);
+    const res = await fetch(SHEET_API_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const rows = await res.json();
+    experts = rows.map((r, i) => {
+      const firstName = (r['First Name'] || '').trim();
+      const lastName  = (r['Last Name'] || '').trim();
+      const fullName  = [firstName, lastName].filter(Boolean).join(' ');
+      const position  = (r['Position'] || '').trim();
+      const company   = (r['Company'] || '').trim();
+      return {
+        id:          i + 1,
+        name:        fullName,
+        title:       position,
+        company:     company,
+        email:       (r['Email Address'] || '').trim(),
+        url:         (r['URL'] || '').trim(),
+        connectedOn: (r['Connected On'] || '').trim(),
+        coriContact: (r['CORI Connection'] || '').trim(),
+        coriEmail:   (r['Email of CORI Connection'] || '').trim(),
+        categories:  inferCategories(position),
+        avatar:      initials(firstName, lastName),
+        av:          inferAvatarClass(fullName)
+      };
+    }).filter(e => e.name.trim().length > 0);
     initTags();
     renderCards();
   } catch (err) {
     grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><i class="ti ti-alert-circle"></i><p>Could not load directory. Please try again later.</p></div>';
+    console.error(err);
   }
 }
 
