@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,20 +27,29 @@
   --card-bg:#ffffff;
 }
 body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5}
+
+/* NAV */
 nav{background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;position:sticky;top:0;z-index:100}
 .nav-left{display:flex;align-items:center;gap:14px}
 .nav-brand{font-size:13px;font-weight:700;color:var(--navy);letter-spacing:0.04em;text-transform:uppercase;line-height:1.2}
+.nav-brand span{display:block;font-weight:400;font-size:11px;color:var(--text-mid);letter-spacing:0.02em;text-transform:none}
 .nav-links{display:flex;gap:2px}
 .nav-link{color:var(--text-mid);font-size:13px;font-weight:500;padding:8px 14px;border-radius:4px;cursor:pointer;border:none;background:none;transition:all 0.15s;letter-spacing:0.01em}
 .nav-link:hover{color:var(--teal);background:var(--teal-light)}
 .nav-link.active{color:var(--teal);background:var(--teal-light);font-weight:600}
+
+/* HERO */
 .hero{background:var(--teal);padding:3rem 2rem 2.5rem}
 .hero-inner{max-width:960px;margin:0 auto}
 .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
 .hero-title{font-size:34px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:10px;letter-spacing:-0.01em}
 .hero-sub{font-size:15px;color:rgba(255,255,255,0.75);font-weight:300;max-width:520px;line-height:1.65}
+
+/* PAGES */
 .page{display:none;padding:2rem 2rem 5rem;max-width:960px;margin:0 auto}
 .page.visible{display:block}
+
+/* SEARCH PANEL */
 .search-panel{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .search-wrap{flex:1;min-width:200px;position:relative}
 .search-wrap i{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-light);font-size:16px;pointer-events:none}
@@ -47,14 +57,20 @@ input[type="text"]{width:100%;padding:10px 10px 10px 36px;border:1.5px solid var
 input[type="text"]:focus{border-color:var(--teal);background:var(--white);box-shadow:0 0 0 3px rgba(26,138,122,0.12)}
 select{padding:10px 30px 10px 11px;border:1.5px solid var(--border);border-radius:4px;font-size:14px;font-family:inherit;color:var(--text);background:var(--cream);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a5263' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;transition:all 0.15s}
 select:focus{border-color:var(--teal);background:var(--white);box-shadow:0 0 0 3px rgba(26,138,122,0.12)}
+
+/* FILTER TAGS */
 .filter-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
 .filter-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-light);margin-right:2px}
 .ftag{padding:5px 13px;border-radius:3px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:var(--white);color:var(--text-mid);letter-spacing:0.01em;transition:all 0.15s}
 .ftag:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-light)}
 .ftag.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* RESULTS BAR */
 .results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:2px solid var(--border)}
 .rcount{font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light)}
 .rcount strong{color:var(--teal);font-size:15px;font-weight:800;margin-right:3px}
+
+/* GRID */
 .expert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:16px}
 .expert-card{background:var(--card-bg);border:1px solid var(--border);border-radius:6px;padding:1.25rem 1.25rem 1rem;cursor:pointer;transition:all 0.18s;border-left:4px solid transparent}
 .expert-card:hover{border-left-color:var(--teal);box-shadow:0 6px 20px rgba(26,31,46,0.1);transform:translateY(-1px)}
@@ -71,8 +87,12 @@ select:focus{border-color:var(--teal);background:var(--white);box-shadow:0 0 0 3
 .ctag{padding:3px 9px;background:var(--teal-light);color:var(--teal-dark);border-radius:3px;font-size:11px;font-weight:700;letter-spacing:0.03em;text-transform:uppercase}
 .card-foot{display:flex;align-items:center;padding-top:10px;border-top:1px solid var(--border);font-size:12px;color:var(--text-light);gap:10px}
 .card-foot i{font-size:13px}
+
+/* EMPTY */
 .empty{text-align:center;padding:4rem 2rem;color:var(--text-light);grid-column:1/-1}
 .empty i{font-size:40px;display:block;margin-bottom:10px;color:var(--border)}
+
+/* MODAL */
 .mbdrop{position:fixed;inset:0;background:rgba(10,15,30,0.6);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
 .mbdrop.open{display:flex}
 .modal{background:var(--white);border-radius:6px;max-width:520px;width:100%;max-height:84vh;overflow-y:auto;border-top:5px solid var(--teal)}
@@ -89,6 +109,8 @@ select:focus{border-color:var(--teal);background:var(--white);box-shadow:0 0 0 3
 .mtags{display:flex;flex-wrap:wrap;gap:6px}
 .copybtn{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:9px 18px;border:1.5px solid var(--border);border-radius:4px;background:none;font-size:13px;font-family:inherit;font-weight:600;cursor:pointer;color:var(--text-mid);transition:all 0.15s}
 .copybtn:hover{background:var(--teal-light);color:var(--teal);border-color:var(--teal)}
+
+/* ABOUT PAGE */
 .about-hero{background:var(--navy);border-radius:6px;padding:2rem 2rem 1.75rem;margin-bottom:1.75rem}
 .about-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .about-title{font-size:26px;font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:8px}
@@ -107,6 +129,7 @@ select:focus{border-color:var(--teal);background:var(--white);box-shadow:0 0 0 3
 .partner{padding:8px 18px;border:1.5px solid var(--border);border-radius:4px;font-size:13px;font-weight:700;color:var(--navy);background:var(--white)}
 .note{background:var(--navy);border-radius:5px;padding:14px 16px;font-size:13px;color:rgba(255,255,255,0.75);line-height:1.65;display:flex;gap:10px;align-items:flex-start;margin-top:1.5rem}
 .note i{font-size:16px;color:var(--gold);flex-shrink:0;margin-top:2px}
+
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @media(max-width:580px){
   .about-grid{grid-template-columns:1fr}
@@ -119,11 +142,12 @@ select:focus{border-color:var(--teal);background:var(--white);box-shadow:0 0 0 3
 
 <nav>
   <div class="nav-left">
-    <img src="/Network-Directory/logo.png" alt="CORI" style="width:44px;height:44px;object-fit:contain;">
+    <img src="logo.png" alt="CORI" style="width:44px;height:44px;object-fit:contain;">
     <div class="nav-brand">CORI Directory</div>
   </div>
   <div class="nav-links">
     <button class="nav-link active" onclick="showPage('directory',this)">Directory</button>
+    <button class="nav-link" onclick="showPage('about',this)">How It Works</button>
   </div>
 </nav>
 
@@ -159,6 +183,67 @@ select:focus{border-color:var(--teal);background:var(--white);box-shadow:0 0 0 3
   <div class="expert-grid" id="expert-grid"></div>
 </div>
 
+<div id="page-about" class="page">
+  <div class="about-hero">
+    <div class="about-eyebrow">Internal Process</div>
+    <div class="about-title">Founder Pain Points & LP Communication</div>
+    <div class="about-sub">Identify and document the most pressing, actionable challenges faced by our portfolio founders, structure those insights into clear categories, and communicate findings monthly to LPs so they may make introductions.</div>
+  </div>
+
+  <div class="sec-title" style="border-top:none;padding-top:0">Four focus categories</div>
+  <div class="about-grid">
+    <div class="cat-card"><i class="ti ti-currency-dollar" aria-hidden="true"></i> Fundraising & Capital Access</div>
+    <div class="cat-card"><i class="ti ti-users" aria-hidden="true"></i> Hiring & Talent</div>
+    <div class="cat-card"><i class="ti ti-target" aria-hidden="true"></i> Product-Market Fit</div>
+    <div class="cat-card"><i class="ti ti-scale" aria-hidden="true"></i> Legal & Compliance</div>
+  </div>
+
+  <div class="sec-title">3-part workflow</div>
+  <div class="workflow-step">
+    <div class="step-n">1</div>
+    <div>
+      <div class="step-title">Founder intake</div>
+      <div class="step-body">Founders fill out a form with their company name and up to 3 pain points across the four categories. Guided prompts help them write in clear, useful language.<br><br><a href="https://forms.gle/Zp37d9CJa95xtG1H8" target="_blank">Open intake form ↗</a></div>
+    </div>
+  </div>
+  <div class="workflow-step">
+    <div class="step-n">2</div>
+    <div>
+      <div class="step-title">Review & refine</div>
+      <div class="step-body">Use AI to suggest more specific language for each entry. The team approves each pain point before it goes to LPs. Collect updated pitch decks, job descriptions, or sales decks from founders at this stage.</div>
+    </div>
+  </div>
+  <div class="workflow-step">
+    <div class="step-n">3</div>
+    <div>
+      <div class="step-title">Send to LPs</div>
+      <div class="step-body">Email LPs the founder needs organized by category. For each need, an LP can indicate whether they can help and provide the name of someone to introduce. Relevant collateral is included upfront.</div>
+    </div>
+  </div>
+
+  <div class="sec-title">Outputs</div>
+  <div class="sec-body">
+    — Categorized summary of founder pain points with supporting context per company<br>
+    — LP communication materials (email or form)<br>
+    — List of action items following LP responses
+  </div>
+
+  <div class="sec-title">What we're not doing</div>
+  <div class="sec-body">Presenting a long, exhaustive list of founder needs. Sending mass emails to LPs.</div>
+
+  <div class="sec-title">Key partners</div>
+  <div class="partners">
+    <div class="partner">Jay</div>
+    <div class="partner">Matt</div>
+    <div class="partner">Rhonda</div>
+  </div>
+
+  <div class="note">
+    <i class="ti ti-info-circle" aria-hidden="true"></i>
+    <span>This directory pulls live data from a connected Google Sheet. To update contacts, simply edit the sheet — changes appear on the site automatically.</span>
+  </div>
+</div>
+
 <div class="mbdrop" id="mbdrop" onclick="closeMdrop(event)">
   <div class="modal">
     <div class="mhead">
@@ -176,7 +261,7 @@ select:focus{border-color:var(--teal);background:var(--white);box-shadow:0 0 0 3
 </div>
 
 <script>
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbweH1y1uNmuSWDkcXEle_pKajgmlFfoaCbVpiHSzmoOBA9lijGuh27i2zSXtCYzlJeZLg/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzakZuHzohGwz9si1upozayu2me2VfJ5pHHuog35cSH5ehMt4lcWuvxjxpZr96_qVRQ/exec';
 
 let experts = [];
 let activeTag = null;
@@ -184,10 +269,14 @@ let activeTag = null;
 function inferCategories(position) {
   const p = (position || '').toLowerCase();
   const cats = [];
-  if (/counsel|legal|attorney|lawyer|compliance|regulatory|policy|litigation|gdpr|privacy/.test(p)) cats.push('Legal & Compliance');
-  if (/talent|recruit|hiring|\bhr\b|human resources|people ops|workforce|staffing|headhunt/.test(p)) cats.push('Hiring & Talent');
-  if (/investor|venture|capital|fund|partner|investment|portfolio|\bvc\b|angel|equity|finance|banking|\bcfo\b|treasurer|endowment|asset/.test(p)) cats.push('Fundraising & Capital Access');
-  if (/product|growth|marketing|\bgtm\b|go-to-market|\bcmo\b|\bcpo\b|brand|strategy|revenue|sales|business dev|\bbd\b|founder|\bceo\b|entrepreneur|operator/.test(p)) cats.push('Product-Market Fit');
+  if (/counsel|legal|attorney|lawyer|compliance|regulatory|policy|litigation|gdpr|privacy/.test(p))
+    cats.push('Legal & Compliance');
+  if (/talent|recruit|hiring|\bhr\b|human resources|people ops|workforce|staffing|headhunt/.test(p))
+    cats.push('Hiring & Talent');
+  if (/investor|venture|capital|fund|partner|investment|portfolio|\bvc\b|angel|equity|finance|banking|\bcfo\b|treasurer|endowment|asset/.test(p))
+    cats.push('Fundraising & Capital Access');
+  if (/product|growth|marketing|\bgtm\b|go-to-market|\bcmo\b|\bcpo\b|brand|strategy|revenue|sales|business dev|\bbd\b|founder|\bceo\b|entrepreneur|operator/.test(p))
+    cats.push('Product-Market Fit');
   return cats.length ? cats : ['General'];
 }
 
@@ -202,57 +291,40 @@ function initials(first, last) {
   return ((first?.[0] || '') + (last?.[0] || '')).toUpperCase() || '??';
 }
 
-function handleData(rows) {
-  if (!rows || !Array.isArray(rows)) {
-    document.getElementById('expert-grid').innerHTML = '<div class="empty" style="grid-column:1/-1"><i class="ti ti-alert-circle"></i><p>No data returned. Please check the sheet.</p></div>';
-    return;
-  }
-  experts = rows.map((r, i) => {
-    const firstName = String(r['First Name'] || '').trim();
-    const lastName  = String(r['Last Name'] || '').trim();
-    const fullName  = [firstName, lastName].filter(Boolean).join(' ');
-    const position  = String(r['Position'] || '').trim();
-    const company   = String(r['Company'] || '').trim();
-    return {
-      id:          i + 1,
-      name:        fullName,
-      title:       position,
-      company:     company,
-      url:         String(r['URL'] || '').trim(),
-      notes:       String(r['Notes'] || '').trim(),
-      categories:  inferCategories(position),
-      avatar:      initials(firstName, lastName),
-      av:          inferAvatarClass(fullName)
-    };
-  }).filter(e => e.name.trim().length > 0);
-  initTags();
-  renderCards();
-}
-
-function loadData() {
+async function loadData() {
   const grid = document.getElementById('expert-grid');
   grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><i class="ti ti-loader" style="display:inline-block;animation:spin 1s linear infinite;font-size:32px"></i><p style="margin-top:12px">Loading directory…</p></div>';
-  
-  // Timeout fallback in case JSONP never fires
-  const timeout = setTimeout(() => {
+  try {
+    const res = await fetch(SHEET_API_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const rows = await res.json();
+    experts = rows.map((r, i) => {
+      const firstName = (r['First Name'] || '').trim();
+      const lastName  = (r['Last Name'] || '').trim();
+      const fullName  = [firstName, lastName].filter(Boolean).join(' ');
+      const position  = (r['Position'] || '').trim();
+      const company   = (r['Company'] || '').trim();
+      return {
+        id:          i + 1,
+        name:        fullName,
+        title:       position,
+        company:     company,
+        email:       (r['Email Address'] || '').trim(),
+        url:         (r['URL'] || '').trim(),
+        connectedOn: (r['Connected On'] || '').trim(),
+        coriContact: (r['CORI Connection'] || '').trim(),
+        coriEmail:   (r['Email of CORI Connection'] || '').trim(),
+        categories:  inferCategories(position),
+        avatar:      initials(firstName, lastName),
+        av:          inferAvatarClass(fullName)
+      };
+    }).filter(e => e.name.trim().length > 0);
+    initTags();
+    renderCards();
+  } catch (err) {
     grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><i class="ti ti-alert-circle"></i><p>Could not load directory. Please try again later.</p></div>';
-  }, 10000);
-
-  // Wrap handleData to clear timeout
-  const originalHandle = window.handleData;
-  window.handleData = function(rows) {
-    clearTimeout(timeout);
-    window.handleData = originalHandle;
-    originalHandle(rows);
-  };
-
-  const script = document.createElement('script');
-  script.src = SHEET_API_URL + '?callback=handleData&t=' + Date.now();
-  script.onerror = () => {
-    clearTimeout(timeout);
-    grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><i class="ti ti-alert-circle"></i><p>Could not load directory. Please try again later.</p></div>';
-  };
-  document.body.appendChild(script);
+    console.error(err);
+  }
 }
 
 function initTags() {
@@ -270,119 +342,17 @@ function initTags() {
   });
 }
 
-const SEMANTIC_MAP = {
-  'consulting':['consultant','consulting','advisory','advisor','strategy','strategist','associate','analyst','engagement manager','principal','mckinsey','bain','bcg','deloitte','accenture','pwc','kpmg','ey','ernst','oliver wyman','booz','roland berger','huron','west monroe','guidehouse'],
-  'consultant':['consultant','consulting','advisory','advisor','associate','analyst','strategy','engagement'],
-  'mckinsey':['mckinsey','consulting','consultant','strategy','advisory','analyst','associate','engagement manager','mbb'],
-  'bain':['bain','consulting','consultant','strategy','advisory','analyst','associate','mbb'],
-  'bcg':['bcg','boston consulting','consulting','consultant','strategy','advisory','analyst','associate','mbb'],
-  'mbb':['mckinsey','bain','bcg','consulting','consultant','strategy','advisory'],
-  'deloitte':['deloitte','consulting','audit','tax','advisory','financial advisory','risk'],
-  'accenture':['accenture','consulting','technology','strategy','digital','operations'],
-  'pwc':['pwc','pricewaterhouse','consulting','audit','tax','advisory','assurance'],
-  'kpmg':['kpmg','consulting','audit','tax','advisory','assurance'],
-  'ey':['ey','ernst young','consulting','audit','tax','advisory','assurance'],
-  'finance':['finance','financial','banking','investment','capital','asset','wealth','fund','equity','hedge','private equity','venture','cfo','treasurer','accounting','analyst','associate','portfolio','trading','quant'],
-  'banking':['bank','banking','investment bank','financial services','finance','analyst','associate','trader','capital markets','fixed income','equities'],
-  'investment banking':['investment banking','investment bank','ib','capital markets','mergers','acquisitions','analyst','associate','vp','managing director','goldman','morgan stanley','jp morgan','citi','barclays','ubs','lazard','evercore','moelis','jefferies'],
-  'goldman':['goldman','goldman sachs','investment banking','finance','analyst','associate','trading','securities','asset management','banking'],
-  'morgan stanley':['morgan stanley','investment banking','finance','analyst','associate','wealth management','trading'],
-  'jp morgan':['jp morgan','jpmorgan','chase','investment banking','finance','analyst','associate','trading','asset management'],
-  'citi':['citi','citibank','citigroup','investment banking','finance','analyst','associate','trading'],
-  'private equity':['private equity','pe','fund','investment','portfolio','buyout','equity','lbo','principal','associate','analyst','blackstone','kkr','carlyle','apollo','tpg','warburg'],
-  'blackstone':['blackstone','private equity','real estate','hedge fund','investment','finance'],
-  'hedge fund':['hedge fund','fund','investment','portfolio','trading','quant','analyst','capital management','asset management'],
-  'asset management':['asset management','investment management','portfolio','fund','analyst','wealth','vanguard','fidelity','blackrock','pimco'],
-  'venture capital':['venture','vc','venture capital','fund','investor','angel','seed','series','partner','principal','associate','portfolio'],
-  'vc':['venture','vc','venture capital','fund','investor','angel','seed','series','partner','principal','associate'],
-  'investor':['investor','venture','vc','capital','fund','partner','angel','investment','portfolio','private equity','pe'],
-  'accounting':['accounting','accountant','cpa','audit','tax','finance','financial','bookkeeping','controller','cfo'],
-  'wealth management':['wealth management','financial advisor','financial planner','wealth','private banking','family office','merrill','morgan stanley'],
-  'tech':['technology','tech','software','engineer','engineering','developer','product','data','ai','machine learning','ml','saas','startup','cto','it','google','meta','amazon','apple','microsoft','netflix'],
-  'technology':['technology','tech','software','engineer','engineering','developer','product','data','saas','startup','cto'],
-  'software':['software','engineer','developer','engineering','swe','full stack','backend','frontend','mobile','devops','cloud'],
-  'engineer':['engineer','engineering','developer','software','technical','technology','infrastructure','devops','data','ml'],
-  'data':['data','analytics','analyst','data science','data scientist','machine learning','ai','business intelligence','bi','sql','engineer','quant','insights'],
-  'ai':['ai','artificial intelligence','machine learning','ml','deep learning','data science','nlp','llm','research scientist','engineer'],
-  'product':['product','product manager','pm','product management','product lead','cpo','product strategy','roadmap'],
-  'google':['google','alphabet','tech','software','engineer','product','data','ai','cloud'],
-  'meta':['meta','facebook','instagram','tech','software','engineer','product','data','ai','social media'],
-  'amazon':['amazon','aws','tech','software','engineer','cloud','product','data','operations','logistics'],
-  'microsoft':['microsoft','azure','tech','software','engineer','cloud','product','data','enterprise'],
-  'startup':['startup','founder','co-founder','entrepreneur','venture','early stage','seed','series a','ceo','cto','coo'],
-  'hiring':['hiring','recruiter','recruiting','talent','hr','human resources','people ops','talent acquisition','staffing','headhunter','workforce','talent agency','talent management','executive search'],
-  'recruiting':['recruiting','recruiter','talent','hr','human resources','hiring','headhunter','staffing','talent acquisition','executive search','sourcer'],
-  'talent':['talent','recruiting','recruiter','talent acquisition','hr','human resources','people ops','hiring','executive search','talent management','talent agency'],
-  'hr':['hr','human resources','people ops','talent','recruiting','recruiter','hiring','workforce','organizational','chief people officer'],
-  'human resources':['human resources','hr','people ops','talent','recruiting','hiring','workforce','organizational'],
-  'executive search':['executive search','headhunter','search firm','recruiter','talent','hr','korn ferry','spencer stuart','heidrick','egon zehnder','russell reynolds'],
-  'talent agency':['talent agency','talent management','talent','agent','entertainment','media','recruiting','representation','wme','caa','uta','img'],
-  'legal':['legal','law','lawyer','attorney','counsel','compliance','regulatory','paralegal','litigation','corporate law','general counsel','associate','partner','clerk'],
-  'lawyer':['lawyer','attorney','counsel','legal','law','litigation','compliance','associate','partner','firm'],
-  'law':['law','legal','lawyer','attorney','counsel','litigation','compliance','regulatory','corporate','firm','associate','partner'],
-  'compliance':['compliance','regulatory','legal','risk','audit','governance','counsel','attorney'],
-  'marketing':['marketing','brand','growth','content','seo','social media','communications','pr','public relations','cmo','demand generation','digital marketing','campaign','advertising'],
-  'pr':['pr','public relations','communications','media','press','brand','marketing','corporate communications'],
-  'advertising':['advertising','ad','marketing','digital marketing','brand','agency','media buying','creative'],
-  'growth':['growth','growth hacking','marketing','product','revenue','acquisition','retention','analytics'],
-  'sales':['sales','business development','biz dev','revenue','account','partnerships','go-to-market','gtm','account executive','ae','sdr','bdr','vp sales','chief revenue officer','cro'],
-  'business development':['business development','biz dev','bd','partnerships','sales','revenue','strategy','corporate development'],
-  'operations':['operations','ops','supply chain','logistics','process','efficiency','coo','chief operating officer','program manager','project manager'],
-  'management':['management','manager','director','vp','vice president','head of','lead','leadership','executive','managing director'],
-  'executive':['executive','ceo','cto','cfo','coo','cmo','president','director','vp','vice president','head of','chief','c-suite'],
-  'strategy':['strategy','strategic','strategist','corporate strategy','business strategy','consulting','advisory','planning'],
-  'real estate':['real estate','property','realty','reit','development','commercial','residential','broker','agent','acquisitions'],
-  'healthcare':['healthcare','health','medical','hospital','clinical','biotech','pharma','pharmaceutical','life sciences','physician','doctor','nurse','patient','medtech','healthtech'],
-  'biotech':['biotech','biotechnology','pharmaceutical','pharma','life sciences','clinical','research','drug','fda','genomics'],
-  'government':['government','federal','state','municipal','public sector','policy','regulatory','agency','department','administration','senate','congress','city','county'],
-  'nonprofit':['nonprofit','non-profit','ngo','foundation','charity','social impact','mission','public sector','501c3','philanthropy'],
-  'policy':['policy','government','public policy','regulatory','advocacy','political','think tank','research','analyst'],
-  'social impact':['social impact','nonprofit','ngo','foundation','charity','mission','esg','sustainability','impact investing','csr'],
-  'media':['media','journalism','journalist','reporter','editor','content','publishing','communications','broadcast','digital media','social media'],
-  'entertainment':['entertainment','media','film','television','tv','music','talent','production','studio','streaming'],
-  'education':['education','university','college','school','professor','teacher','academic','edtech','learning','curriculum','dean','faculty'],
-  'design':['design','designer','ux','ui','product design','creative','brand','graphic','visual','user experience'],
-  'research':['research','analyst','analysis','researcher','scientist','data','insights','intelligence','quant','quantitative'],
-  'analyst':['analyst','analysis','research','data','intelligence','insights','associate','junior','senior','lead'],
-  'sustainability':['sustainability','esg','environmental','social','governance','climate','green','impact','csr','social responsibility'],
-  'entrepreneur':['entrepreneur','founder','co-founder','startup','ceo','cto','coo','owner','self-employed','venture'],
-  'founder':['founder','co-founder','ceo','entrepreneur','startup','owner','built','started','launched'],
-  'capital one':['capital one','banking','finance','analyst','associate','credit','financial services'],
-  'jp morgan':['jp morgan','jpmorgan','chase','investment banking','finance','analyst'],
-  'bank of america':['bank of america','boa','banking','finance','analyst','associate','merrill'],
-  'wells fargo':['wells fargo','banking','finance','analyst','associate','financial services'],
-};
-
-function expandQuery(q) {
-  if (!q) return [];
-  const terms = new Set([q]);
-  if (SEMANTIC_MAP[q]) SEMANTIC_MAP[q].forEach(t => terms.add(t));
-  Object.keys(SEMANTIC_MAP).forEach(key => {
-    if (key !== q && (key.includes(q) || q.includes(key))) SEMANTIC_MAP[key].forEach(t => terms.add(t));
-  });
-  Object.entries(SEMANTIC_MAP).forEach(([key, vals]) => {
-    if (vals.some(v => v === q || v.includes(q) || q.includes(v))) {
-      terms.add(key);
-      SEMANTIC_MAP[key].forEach(t => terms.add(t));
-    }
-  });
-  return [...terms];
-}
-
-function matchesSearch(e, q) {
-  if (!q) return true;
-  const terms = expandQuery(q);
-  const haystack = [e.name, e.title, e.company, e.coriContact].filter(Boolean).join(' ').toLowerCase();
-  return terms.some(t => haystack.includes(t));
-}
-
 function renderCards() {
-  const q = document.getElementById('search-input').value.toLowerCase().trim();
+  const q = document.getElementById('search-input').value.toLowerCase();
   const cat = document.getElementById('cat-filter').value;
   const grid = document.getElementById('expert-grid');
   const rc = document.getElementById('rcount');
   const f = experts.filter(e => {
-    const mq = matchesSearch(e, q);
+    const mq = !q ||
+      e.name.toLowerCase().includes(q) ||
+      (e.title || '').toLowerCase().includes(q) ||
+      (e.company || '').toLowerCase().includes(q) ||
+      (e.coriContact || '').toLowerCase().includes(q);
     const mc = !cat || e.categories.includes(cat);
     const mt = !activeTag || e.categories.includes(activeTag);
     return mq && mc && mt;
@@ -404,7 +374,7 @@ function renderCards() {
       <div class="card-cats">${e.categories.map(c => `<span class="ctag">${c}</span>`).join('')}</div>
       <div class="card-foot">
         <i class="ti ti-building" aria-hidden="true"></i>${e.company || '—'}
-        ${e.url ? `<span style="margin-left:auto"><i class="ti ti-brand-linkedin" aria-hidden="true"></i> LinkedIn</span>` : ''}
+        ${e.email ? `<span style="margin-left:auto"><i class="ti ti-mail" aria-hidden="true"></i> ${e.email.split('@')[0]}@…</span>` : ''}
       </div>
     </div>`).join('');
 }
@@ -421,10 +391,20 @@ function openM(id) {
       <div class="mlabel">Categories</div>
       <div class="mtags">${e.categories.map(c => `<span class="ctag">${c}</span>`).join('')}</div>
     </div>
-    ${e.notes ? `<div class="msec"><div class="mlabel">Notes</div><div class="mtext">${e.notes}</div></div>` : ''}
+    ${e.coriContact ? `
+    <div class="msec">
+      <div class="mlabel">CORI Connection</div>
+      <div class="mtext">${e.coriContact}${e.coriEmail ? ` — <a href="mailto:${e.coriEmail}" style="color:var(--teal)">${e.coriEmail}</a>` : ''}</div>
+    </div>` : ''}
+    ${e.connectedOn ? `
+    <div class="msec">
+      <div class="mlabel">Connected On</div>
+      <div class="mtext">${e.connectedOn}</div>
+    </div>` : ''}
     <div style="border-top:1px solid var(--border);padding-top:14px;">
-      <div class="mlabel">Links</div>
+      <div class="mlabel">Contact</div>
       <div style="font-size:13px;color:var(--text-mid);margin-top:6px;display:flex;flex-direction:column;gap:6px">
+        ${e.email ? `<span><i class="ti ti-mail" style="font-size:14px;vertical-align:-2px;margin-right:7px"></i><a href="mailto:${e.email}" style="color:var(--teal)">${e.email}</a></span>` : ''}
         ${e.url ? `<span><i class="ti ti-brand-linkedin" style="font-size:14px;vertical-align:-2px;margin-right:7px"></i><a href="${e.url}" target="_blank" style="color:var(--teal)">LinkedIn Profile</a></span>` : ''}
       </div>
       <button class="copybtn" onclick="copyC(${e.id})"><i class="ti ti-copy" aria-hidden="true"></i> Copy contact info</button>
@@ -434,7 +414,7 @@ function openM(id) {
 
 function copyC(id) {
   const e = experts.find(x => x.id === id);
-  const text = [e.name, e.title, e.company, e.url].filter(Boolean).join('\n');
+  const text = [e.name, e.title, e.company, e.email, e.url].filter(Boolean).join('\n');
   navigator.clipboard.writeText(text).catch(() => {});
   const b = document.querySelector('.copybtn');
   if (b) { b.innerHTML = '<i class="ti ti-check"></i> Copied!'; setTimeout(() => { b.innerHTML = '<i class="ti ti-copy"></i> Copy contact info'; }, 2000); }
