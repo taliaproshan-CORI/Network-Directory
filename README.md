@@ -1,7 +1,7 @@
 # Network-Directory
 
 CORI Network Directory
-A searchable internal directory of LP contacts and domain experts, built to help the CORI team quickly match founder needs with the right people in the network.
+A searchable internal directory of Matt's LinkedIn contacts, built to help the CORI team quickly match founder needs with the right people in the network.
 What it does
 The site loads a live database of contacts from a connected Google Sheet and displays them as searchable cards. Team members can search by name, company, job title, or area of expertise. The search is semantic — meaning related terms are matched automatically, so searching "consulting" surfaces McKinsey analysts, searching "hiring" surfaces talent agency contacts, and so on.
 How to update contacts
